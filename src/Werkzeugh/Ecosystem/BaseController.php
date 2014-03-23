@@ -20,6 +20,20 @@ class BaseController extends Controller
       //initialize ecosystem
         $this->eco->init();
         $this->setDefaultLayoutTemplate();
+        $this->setupDefaultViewVariables();
+    }
+
+    public function setupDefaultViewVariables()
+    {
+
+        \View::share('pageclass',$this->getCssClassName());
+
+    }
+
+    public function getCssClassName()
+    {
+         $str=\Core::dash_case(get_class($this));
+         return str_replace('-controller','',$str);
     }
 
     function setDefaultLayoutTemplate()
