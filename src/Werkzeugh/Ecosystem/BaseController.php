@@ -30,9 +30,19 @@ class BaseController extends Controller
 
     }
 
+    public function getClassNameWithoutNamespace($obj) {
+        $classname = get_class($obj);
+
+        if (preg_match('@\\\\([\w]+)$@', $classname, $matches)) {
+            $classname = $matches[1];
+        }
+
+        return $classname;
+    }
+    
     public function getCssClassName()
     {
-         $str=\Core::dash_case(get_class($this));
+         $str=\Core::dash_case($this->getClassNameWithoutNamespace($this));
          return str_replace('-controller','',$str);
     }
 
