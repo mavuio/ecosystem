@@ -6,10 +6,9 @@ use Illuminate\Routing\Controller;
 class BaseController extends Controller
 {
 
-    public function __construct(\Werkzeugh\Ecosystem\ControllerExtensionInterface $controllerExtension)
+    public function __construct()
     {
-
-        $this->eco=$controllerExtension;
+        $this->eco=\App::make('Werkzeugh\Ecosystem\ControllerExtensionInterface');
         $this->eco->registerController($this);
     }
 
@@ -39,7 +38,7 @@ class BaseController extends Controller
 
         return $classname;
     }
-    
+
     public function getCssClassName()
     {
          $str=\Core::dash_case($this->getClassNameWithoutNamespace($this));
